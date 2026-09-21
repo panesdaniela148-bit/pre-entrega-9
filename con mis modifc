@@ -1,0 +1,54 @@
+ ------RetailPro — Ventas Tech Analytics-----
+
+-------Descripción del Proyecto-----
+RetailPro (`Ventas_Tech_DB`) es un proyecto integral de analítica relacional orientado al procesamiento de transacciones comerciales, auditoría de conversión de clientes, control de rotación de inventarios y consolidación de ventas por canal de distribución.
+
+---- Arquitectura de la Base de Datos----
+El sistema se estructura sobre un modelo relacional normalizado compuesto por las siguientes entidades:
+- **`ventas` (Tabla de Hechos):** Almacena las transacciones comerciales, fechas, cantidades, precios unitarios y las claves foráneas hacia las dimensiones.
+- **`clientes` (Dimensión):** Contiene la información demográfica, correo electrónico, fecha de registro y ciudad de residencia del cliente.
+- **`productos` (Dimensión):** Almacena el catálogo de artículos, sus precios unitarios base y la vinculación con su categoría.
+- **`categorias` (Dimensión):** Módulo de clasificación jerárquica de los productos del catálogo.
+
+---- Tecnologías Utilizadas-----
+- **Motor de Base de Datos:** SQL ANSI / MySQL Server / MariaDB.
+- **Lenguaje:** SQL Avanzado (INNER JOIN, LEFT JOIN, Expresiones de Tabla Comunes - CTE, Agregaciones y Window Functions).
+- **Herramientas de IA:** Co-piloto para optimización de sintaxis SQL y documentación técnica.
+
+----- Guía de Despliegue y Ejecución----
+1. Clonar el repositorio: `git clone https://github.com/usuario/retailpro-analytics.git`
+2. Crear e importar la base de datos: `SOURCE /scripts/01_build_db.sql;`
+3. Ejecutar la suite de consultas analíticas: `SOURCE /scripts/02_analysis_queries.sql;`
+---------------------------------------------------
+  ----------MODIFICADO-------------
+  -------RetailPro — Ventas Tech Analytics (Ventas_Tech_DB)------
+
+--------Descripción Ejecutiva del Proyecto------
+RetailPro es una solución de analítica relacional en SQL diseñada para el procesamiento transaccional, el control de rotación de inventario, la auditoría de conversión de clientes y la consolidación de facturación por canal comercial. El sistema permite pasar de datos transaccionales crudos a tableros de control e insights de negocio accionables.
+
+----- Arquitectura del Modelo de Datos (DER)------
+La base de datos relacional `Ventas_Tech_DB` está normalizada (cumpliendo 2FN y 3FN) y se compone de 4 entidades interconectadas:
+
+- **`ventas` (Tabla de Hechos):** Almacena las transacciones individuales. Registra `id_venta`, `fecha_venta`, `cantidad`, `precio_unitario` y las Claves Foráneas (`id_cliente`, `id_producto`).
+- **`clientes` (Dimensión):** Entidad primaria con `id_cliente`, `nombre`, `email`, `fecha_registro` y `ciudad` (utilizada para la segmentación de región).
+- **`productos` (Dimensión):** Catálogo de artículos con `id_producto`, `nombre_producto`, `precio` unitario de lista y la Clave Foránea `id_categoria`.
+- **`categorias` (Dimensión):** Clasificación jerárquica con `id_categoria` y `nombre_categoria`.
+
+------- Módulos Analíticos y Consultas Especiales------
+El repositorio no solo contiene la vista consolidada base, sino que incorpora scripts de auditoría avanzada:
+1. **Vista Base Consolidada:** Unifica las 4 tablas mediante `INNER JOIN` para reportería general.
+2. **Auditoría de Ineficiencias (`LEFT JOIN`):**
+   - Identificación de **Clientes Sin Compras** (`WHERE v.id_venta IS NULL`) para campañas de remarketing.
+   - Identificación de **Productos Sin Rotación** (`WHERE v.id_venta IS NULL`) para detección de capital inmovilizado.
+3. **Consolidación por Canal mediante CTE (`VentasPorCanal`):** Utiliza expresiones de tabla temporales y `UNION ALL` para calcular volumen de ventas e ingresos por canal de venta.
+
+-------Pila Tecnológica------
+- **Engine Database:** MySQL Server 8.0 / MariaDB 10.4+.
+- **Lenguaje:** SQL ANSI Avanzado (INNER JOIN, LEFT JOIN, CTEs, Agregaciones `GROUP BY`).
+- **Control de Versiones & Documentación:** Git, GitHub, Markdown e Inteligencia Artificial como co-piloto de documentación.
+
+-------------Instrucciones de Despliegue y Validación--------
+1. Clonar el repositorio localmente:
+   ```bash
+   git clone [https://github.com/tu-usuario/retailpro-ventas-tech.git](https://github.com/tu-usuario/retailpro-ventas-tech.git)
+   cd retailpro-ventas-tech
